@@ -13,11 +13,13 @@ if (IS_WINDOWS) {
      *
      * @return string
      */
+    if (!function_exists('escapeArguments')) {
     function escapeArguments(string $arg): string
     {
         return '"' . \preg_replace_callback('(\\\\*("|$))', function (array $m): string {
             return \str_repeat('\\', \strlen($m[0])) . $m[0];
         }, $arg) . '"';
+    }
     }
 } else {
     /**
@@ -27,8 +29,10 @@ if (IS_WINDOWS) {
      *
      * @return string
      */
+    if (!function_exists('escapeArguments')) {
     function escapeArguments(string $arg): string
     {
         return \escapeshellarg($arg);
+    }
     }
 }
